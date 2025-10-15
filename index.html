@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apple产品介绍</title>
+    <title>Material Management Workshop</title>
     <style>
         * {
             margin: 0;
@@ -236,11 +236,41 @@
             transform: translateX(0);
         }
 
-        .detail-image img {
-            max-width: 100%;
+        .detail-image .emoji-placeholder {
+            width: 100%;
+            height: 400px;
             border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px; /* Larger emoji size */
+            background-color: #f5f5f7; /* Default background */
+            position: relative;
+            overflow: hidden;
         }
+
+        .detail-image .emoji-placeholder::before {
+            content: attr(data-emoji);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%; /* Fill half of the space */
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--bg-color); /* Use CSS variable for background */
+            color: white;
+            border-radius: 20px 0 0 20px; /* Rounded corners only on the left */
+            z-index: 1;
+        }
+        
+        .detail-image .emoji-placeholder span {
+            position: relative;
+            z-index: 2; /* Ensure the emoji is above the half-fill */
+            color: #1d1d1f; /* Color for the emoji on the non-filled side */
+        }
+
 
         .detail-title {
             font-size: 40px;
@@ -392,7 +422,6 @@
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
     <nav id="navbar">
         <div class="container nav-container">
             <a href="#header" class="logo">Compal</a>
@@ -405,7 +434,6 @@
         </div>
     </nav>
 
-    <!-- 英雄区域 -->
     <section class="hero" id="header">
         <div class="container">
             <h1>Material Management Workshop</h1>
@@ -432,7 +460,6 @@
         </div>
     </section>
 
-    <!-- 产品展示区 -->
     <section class="product-showcase" id="features">
         <div class="container">
             <h2 class="section-title">如何運用ICT促進材料管控KPI目標高效達成？</h2>
@@ -457,7 +484,6 @@
         </div>
     </section>
 
-    <!-- 产品详情区 -->
     <section class="product-detail" id="details">
         <div class="container">
             <div class="detail-content">
@@ -466,17 +492,12 @@
                     <p class="detail-desc">如何確保賬物一致？</p>
                 </div>
                 <div class="detail-image">
-                    
-                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #a1a1a6 0%, #6e6e73 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
-<img src="audit.png" alt="海CFR報表" style="width: 75%; height: 75%; object-fit: cover;"></div> 
+                    <div class="emoji-placeholder" data-emoji="✅" style="--bg-color: #a1a1a6;"><span style="color: #1d1d1f;">🛡️</span></div>
                 </div>
             </div>
             <div class="detail-content">
                 <div class="detail-image">
-                    <!-- 这里应该是产品图片 -->
-                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #0071e3 0%, #2997ff 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
-<img src="report.png" alt="" style="width: 75%; height: 75%; object-fit: cover;">
-</div>
+                    <div class="emoji-placeholder" data-emoji="🗂️" style="--bg-color: #0071e3;"><span style="color: #f5f5f7;">📰</span></div>
                 </div>
                 <div class="detail-text">
                     <h2 class="detail-title">CFR報表</h2>
@@ -486,7 +507,6 @@
         </div>
     </section>
 
-    <!-- 购买区 -->
     <section class="purchase-section" id="purchase">
         <div class="container">
             <h2 class="section-title">總結&頒獎</h2>
@@ -515,7 +535,6 @@
         </div>
     </section>
 
-    <!-- 页脚 -->
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -523,14 +542,14 @@
                 <div class="footer-column">
                     <h3>A31</h3>
                     <ul>
-			<li><a href="#">Tesa Liu</a></li>
-			<li><a href="#">Leila Hsu</a></li>
-			<li><a href="#">Groupie Yu</a></li>
-			<li><a href="#">Rock Wang</a></li>
-			<li><a href="#">Jesn Zhang</a></li>
-			<li><a href="#">Becky Wang</a></li>
-			<li><a href="#">Stephen Wang</a></li>
-			<li><a href="#">Jeryson Chen</a></li>
+            <li><a href="#">Tesa Liu</a></li>
+            <li><a href="#">Leila Hsu</a></li>
+            <li><a href="#">Groupie Yu</a></li>
+            <li><a href="#">Rock Wang</a></li>
+            <li><a href="#">Jesn Zhang</a></li>
+            <li><a href="#">Becky Wang</a></li>
+            <li><a href="#">Stephen Wang</a></li>
+            <li><a href="#">Jeryson Chen</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -541,13 +560,13 @@
                         <li><a href="#">Joe Deng</a></li>
                         <li><a href="#">Tobyy Yao</a></li>
                         <li><a href="#">Alon Long</a></li>
-			<li><a href="#">Yulin Dong</a></li>
-			<li><a href="#">Elay Zhang</a></li>
-			<li><a href="#">Lynn Chueh</a></li>
-			<li><a href="#">Ann Nguyen</a></li>
-			<li><a href="#">Bee Nguyen</a></li>
-			<li><a href="#">JoyceYJ Chen</a></li>
-			<li><a href="#">ShuangHong Zi</a></li>
+            <li><a href="#">Yulin Dong</a></li>
+            <li><a href="#">Elay Zhang</a></li>
+            <li><a href="#">Lynn Chueh</a></li>
+            <li><a href="#">Ann Nguyen</a></li>
+            <li><a href="#">Bee Nguyen</a></li>
+            <li><a href="#">JoyceYJ Chen</a></li>
+            <li><a href="#">ShuangHong Zi</a></li>
                     </ul>
                 </div>
             </div>
