@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apple产品介绍</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏 */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 5px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 21px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            color: #f5f5f7;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #2997ff;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease forwards;
+        }
+
+        .hero h2 {
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease 0.2s forwards;
+        }
+
+        .hero p {
+            font-size: 21px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease 0.4s forwards;
+        }
+
+        .hero-buttons {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s ease 0.6s forwards;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 0 10px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #0071e3;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0077ed;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #0071e3;
+            border: 2px solid #0071e3;
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(0, 113, 227, 0.1);
+        }
+
+        /* 产品展示区 */
+        .product-showcase {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 60px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background-color: #f5f5f7;
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            transition: transform 0.5s, box-shadow 0.5s;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #0071e3;
+        }
+
+        .feature-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .feature-desc {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #6e6e73;
+        }
+
+        /* 产品详情区 */
+        .product-detail {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f5f5f7 0%, #e8e8ed 100%);
+        }
+
+        .detail-content {
+            display: flex;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .detail-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .detail-image {
+            flex: 1;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 1s ease;
+        }
+
+        .detail-image.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .detail-image img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .detail-desc {
+            font-size: 21px;
+            line-height: 1.5;
+            color: #6e6e73;
+        }
+
+        /* 购买区 */
+        .purchase-section {
+            padding: 100px 0;
+            background-color: white;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #1d1d1f;
+        }
+
+        .purchase-options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .color-option {
+            width: 150px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.05);
+        }
+
+        .color-image {
+            width: 100%;
+            height: 150px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            background-color: #f5f5f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .color-name {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: #1d1d1f;
+            color: #f5f5f7;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #f5f5f7;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #a1a1a6;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #f5f5f7;
+        }
+
+        .copyright {
+            text-align: center;
+            font-size: 14px;
+            color: #86868b;
+            padding-top: 20px;
+            border-top: 1px solid #424245;
+        }
+
+        /* 动画 */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero h2 {
+                font-size: 24px;
+            }
+
+            .detail-content {
+                flex-direction: column;
+            }
+
+            .detail-text {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav id="navbar">
+        <div class="container nav-container">
+            <a href="#header" class="logo">Compal</a>
+            <ul class="nav-links">
+                <li><a href="#features">Topic 1</a></li>
+                <li><a href="#details">Topic 2</a></li>
+                <li><a href="#purchase">Summary & Award</a></li>
+                <li><a href="#">Group Photo</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="header">
+        <div class="container">
+            <h1>Material Management Workshop</h1>
+            <h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <h3 class="feature-title">Wed, Oct 22 </h3>
+                    <p class="feature-desc">13:30 – 17:00</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📍</div>
+                    <h3 class="feature-title">CVC P2 </h3>
+                    <p class="feature-desc">1F Lecture Hall</p>
+                </div>
+            </div>
+</h2>
+            <p>CMME invites you to a hands-on workshop on Material Management! Learn how to leverage the ICT system to optimize inventory control and achieve KPI targets efficiently.
+</p>
+            <div class="hero-buttons">
+                <a href="#features" class="btn btn-primary">Topic 1</a>
+                <a href="#details" class="btn btn-secondary">Topic 2</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品展示区 -->
+    <section class="product-showcase" id="features">
+        <div class="container">
+            <h2 class="section-title">如何運用ICT促進材料管控KPI目標高效達成？</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title"></h3>
+                    <p class="feature-desc">Aligned logic and calculation built into core systems.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📈</div>
+                    <h3 class="feature-title"></h3>
+                    <p class="feature-desc">Comprehensive control tower with detailed breakdown to call for early intervention and drive fast reaction.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title"></h3>
+                    <p class="feature-desc">One-stop platform for automated root cause analysis identifying exception drivers.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 产品详情区 -->
+    <section class="product-detail" id="details">
+        <div class="container">
+            <div class="detail-content">
+                <div class="detail-text">
+                    <h2 class="detail-title">VN核銷</h2>
+                    <p class="detail-desc">如何確保賬物一致？</p>
+                </div>
+                <div class="detail-image">
+                    
+                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #a1a1a6 0%, #6e6e73 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+<img src="audit.png" alt="海CFR報表" style="width: 75%; height: 75%; object-fit: cover;"></div> 
+                </div>
+            </div>
+            <div class="detail-content">
+                <div class="detail-image">
+                    <!-- 这里应该是产品图片 -->
+                    <div style="width: 100%; height: 400px; background: linear-gradient(135deg, #0071e3 0%, #2997ff 100%); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+<img src="report.png" alt="" style="width: 75%; height: 75%; object-fit: cover;">
+</div>
+                </div>
+                <div class="detail-text">
+                    <h2 class="detail-title">CFR報表</h2>
+                    <p class="detail-desc">CFR報告按時保質完成？</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 购买区 -->
+    <section class="purchase-section" id="purchase">
+        <div class="container">
+            <h2 class="section-title">總結&頒獎</h2>
+            <div class="price"></div>
+            
+            <div class="purchase-options">
+                <div class="color-option">
+                    <div class="color-image" style="background-color: #1d1d1f; color: white;">🏆</div>
+                    <div class="color-name"></div>
+                </div>
+                <div class="color-option">
+                    <div class="color-image" style="background-color: #f5f5f7; color: #1d1d1f;">🎖️</div>
+                    <div class="color-name"></div>
+                </div>
+                <div class="color-option">
+                    <div class="color-image" style="background-color: #a1a1a6; color: white;">✨</div>
+                    <div class="color-name"></div>
+                </div>
+                <div class="color-option">
+                    <div class="color-image" style="background-color: #e3bc9a; color: white;">🥇</div>
+                    <div class="color-name"></div>
+                </div>
+            </div>
+            
+            <a href="#" class="btn btn-primary">Thanks</a>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+
+                <div class="footer-column">
+                    <h3>A31</h3>
+                    <ul>
+			<li><a href="#">Tesa Liu</a></li>
+			<li><a href="#">Leila Hsu</a></li>
+			<li><a href="#">Groupie Yu</a></li>
+			<li><a href="#">Rock Wang</a></li>
+			<li><a href="#">Jesn Zhang</a></li>
+			<li><a href="#">Becky Wang</a></li>
+			<li><a href="#">Stephen Wang</a></li>
+			<li><a href="#">Jeryson Chen</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>A88</h3>
+                    <ul>
+                        <li><a href="#">Xin Su</a></li>
+                        <li><a href="#">Bill Feng</a></li>
+                        <li><a href="#">Joe Deng</a></li>
+                        <li><a href="#">Tobyy Yao</a></li>
+                        <li><a href="#">Alon Long</a></li>
+			<li><a href="#">Yulin Dong</a></li>
+			<li><a href="#">Elay Zhang</a></li>
+			<li><a href="#">Lynn Chueh</a></li>
+			<li><a href="#">Ann Nguyen</a></li>
+			<li><a href="#">Bee Nguyen</a></li>
+			<li><a href="#">JoyceYJ Chen</a></li>
+			<li><a href="#">ShuangHong Zi</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>Copyright © 2025 Compal Inc.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 滚动动画
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.feature-card, .detail-image');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // 初始检查
+        checkVisibility();
+        
+        // 滚动时检查
+        window.addEventListener('scroll', checkVisibility);
+
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
