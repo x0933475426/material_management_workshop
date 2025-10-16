@@ -528,6 +528,52 @@
                 text-align: center;
             }
         }
+		/* 桌面版 Agenda 橫向排版 */
+@media (min-width: 500px) {
+    #agenda .features-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    #agenda .feature-card {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: left;
+        padding: 20px 30px;
+        border-radius: 15px;
+        background-color: #f5f5f7;
+        transition: transform 0.3s;
+    }
+
+    #agenda .feature-icon {
+        font-size: 32px;
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+
+    #agenda .feature-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin: 0;
+        margin-right: 40px;
+        min-width: 200px;
+    }
+
+    #agenda .feature-desc {
+        font-size: 16px;
+        color: #6e6e73;
+        margin: 0;
+    }
+
+    #agenda .feature-desc span {
+        margin-left: 10px;
+        color: #86868b;
+        font-size: 14px;
+    }
+}
+
     </style>
 </head>
 <body>
@@ -691,8 +737,10 @@
 						and discover smarter ways to manage materials in a dynamic environment!
 					</p>
 				</div>
-				<a href="mailto:MME_Audit@compal.com?subject=Material%20Management%20Workshop%20Registration&body=Dear%20CMME%20team,%0A%0AI%20would%20like%20to%20register%20for%20the%20upcoming%20Material%20Management%20Workshop%20on%20Oct%2021.%20Please%20let%20me%20know%20if%20any%20further%20information%20is%20needed.%0A%0AThank%20you!" class="btn btn-primary">📩 Register</a>
 			</div>
+		</div>				
+		<div style="text-align: center;">
+			<a href="mailto:MME_Audit@compal.com?subject=Material%20Management%20Workshop%20Registration&body=Dear%20CMME%20team,%0A%0AI%20would%20like%20to%20register%20for%20the%20upcoming%20Material%20Management%20Workshop%20on%20Oct%2021.%20Please%20let%20me%20know%20if%20any%20further%20information%20is%20needed.%0A%0AThank%20you!" class="btn btn-primary">📩 Register</a>
 		</div>
 	</section>
     <footer>
