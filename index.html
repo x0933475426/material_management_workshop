@@ -112,6 +112,8 @@
             font-size: 56px;
             font-weight: 700;
             margin-bottom: 10px;
+            /* Material Management Workshop 的深灰黑色 */
+            color: #1c1c1e; 
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1s ease forwards;
@@ -124,22 +126,35 @@
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1s ease 0.2s forwards;
-            /* 📌 新增或修改這一行來設定深藍色 */
-            color: #0071e3; /* 這是 Apple 官方藍色，讓它顯眼 */
+            /* Workshop Time and Location 的深藍色 */
+            color: #0071e3; 
         }
 
         .hero p {
             font-size: 21px;
             max-width: 600px;
             margin-bottom: 30px;
+            
+            /* 保持容器置中 */
+            display: block; 
+            margin-left: auto;
+            margin-right: auto;
+            
+            /* 📌 移除打字機相關樣式，使用原來的平滑漸入動畫 */
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1s ease 0.4s forwards;
+            
+            white-space: normal; 
+            text-align: center; 
         }
+        
+        /* 📌 移除 .typing-cursor 和 @keyframes blink-caret */
+        
 
         .hero-buttons {
-            /* 📌 新增或調整這裡的 margin-top 值 */
-            margin-top: 30px; /* 增加頂部邊距，讓它與上方的文字拉開距離 */
+            /* 調整按鈕與上方文字的距離 */
+            margin-top: 30px; 
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1s ease 0.6s forwards;
@@ -542,8 +557,8 @@
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">📅</div>
-                    <h3 class="feature-title">Wed, Oct 22 </h3>
-                    <p class="feature-desc">13:30 – 17:00</p>
+                    <h3 class="feature-title">Tue, Oct 21 </h3>
+                    <p class="feature-desc">13:30 – 16:30</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">📍</div>
@@ -738,6 +753,12 @@
                 }
             });
         });
+        
+        // 📌 移除打字機效果 JS 邏輯
+        // const typingTextElement = document.getElementById('typing-text');
+        // if (typingTextElement) {
+        //     ...
+        // }
     </script>
 </body>
 </html>
