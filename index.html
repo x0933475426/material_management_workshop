@@ -528,6 +528,7 @@
                 text-align: center;
             }
         }
+
 		/* 桌面版 Agenda 橫向排版 */
 @media (min-width: 500px) {
     #agenda .features-grid {
@@ -573,7 +574,62 @@
         font-size: 14px;
     }
 }
+        /* ===== 原樣式省略不變 ===== */
+        /* 只新增報名表單的部分樣式 */
+        .register-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 400px;
+            margin: 20px auto;
+            background-color: #f5f5f7;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
 
+        .register-form label {
+            align-self: flex-start;
+            font-size: 16px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .register-form input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .register-form button {
+            margin-top: 20px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            background-color: #0071e3;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .register-form button:hover {
+            background-color: #0077ed;
+        }
+
+        .success-message {
+            color: green;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .error-message {
+            color: red;
+            font-weight: 600;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -726,23 +782,37 @@
             
         </div>
     </section>
-	<section class="product-detail" id="closing">
-		<div class="container">
-			<div class="detail-content">
-				<div class="detail-text" style="text-align: center;">
-					<h2 class="detail-title">Join us</h2>
-					<p class="detail-desc">
-						It’s more than just a presentation—it’s a collaborative experience.<br>
-						Engage with peers, share challenges,<br>
-						and discover smarter ways to manage materials in a dynamic environment!
-					</p>
-				</div>
-			</div>
-		</div>				
-		<div style="text-align: center;">
-			<a href="mailto:MME_Audit@compal.com?subject=Material%20Management%20Workshop%20Registration&body=Dear%20CMME%20team,%0A%0AI%20would%20like%20to%20register%20for%20the%20upcoming%20Material%20Management%20Workshop%20on%20Oct%2021.%20Please%20let%20me%20know%20if%20any%20further%20information%20is%20needed.%0A%0AThank%20you!" class="btn btn-primary">📩 Register</a>
-		</div>
-	</section>
+    <section class="product-detail" id="closing">
+        <div class="container">
+            <div class="detail-content">
+                <div class="detail-text" style="text-align: center;">
+                    <h2 class="detail-title">Join us</h2>
+                    <p class="detail-desc">
+                        It’s more than just a presentation—it’s a collaborative experience.<br>
+                        Engage with peers, share challenges,<br>
+                        and discover smarter ways to manage materials in a dynamic environment!
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 🔽 新增報名表單 -->
+        <form class="register-form" id="register-form">
+            <label for="name">姓名：</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">E-mail：</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="customer">客戶別：</label>
+            <input type="text" id="customer" name="customer" required>
+
+            <button type="submit">📩 送出報名</button>
+
+            <p id="form-status" class="success-message" style="display:none;">✅ 已成功送出報名！</p>
+            <p id="form-error" class="error-message" style="display:none;">❌ 寄送失敗，請稍後再試。</p>
+        </form>
+    </section>
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -751,6 +821,49 @@
             </div>
         </div>
     </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    emailjs.init({
+      publicKey: "bhJiiWSqw6Qbo10VY",
+    });
+
+    const form = document.getElementById("register-form");
+    const formStatus = document.getElementById("form-status");
+    const formError = document.getElementById("form-error");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      formStatus.style.display = "none";
+      formError.style.display = "none";
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const customer = form.customer.value.trim();
+
+      if (!name || !email || !customer) {
+        formError.textContent = "⚠️ 請填寫完整資訊";
+        formError.style.display = "block";
+        return;
+      }
+
+      emailjs
+        .send("service_01sr72m", "template_agop9zb", { name, email, customer })
+        .then(() => {
+          formStatus.style.display = "block";
+          form.reset();
+        })
+        .catch((error) => {
+          console.error("EmailJS error:", error);
+          formError.textContent = "❌ 寄送失敗，請稍後再試。";
+          formError.style.display = "block";
+        });
+    });
+  });
+</script>
 
     <script>
         // 导航栏滚动效果
